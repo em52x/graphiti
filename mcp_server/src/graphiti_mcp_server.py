@@ -901,18 +901,31 @@ async def initialize_server() -> ServerConfig:
     if config.server.port:
         mcp.settings.port = config.server.port
 
-    # Attempt to allow all hosts to fix "Invalid Host header" error
-    # This is necessary when running in Docker or accessing via host.docker.internal
+    # Attempt to fix "Invalid Host header" error
     try:
-        # Check if allowed_hosts is a valid setting (it is in newer MCP versions)
+        logger.info(f"Debug: MCP Settings Dir: {dir(mcp.settings)}")
+        
+        # Try disabling DNS rebinding protection (most likely fix)
+        if hasattr(mcp.settings, 'enable_dns_rebinding_protection'):
+            mcp.settings.enable_dns_rebinding_protection = False
+            logger.info("Disabled DNS rebinding protection")
+            
+        # Try setting allowed_hosts
         if hasattr(mcp.settings, 'allowed_hosts'):
-            mcp.settings.allowed_hosts = ['*']
-            logger.info("Configured allowed_hosts to ['*']")
-        else:
-            # Fallback for older versions or if attribute name differs
-            logger.debug("mcp.settings does not have allowed_hosts attribute")
+            # Ensure it's a list
+            if mcp.settings.allowed_hosts is None:
+                mcp.settings.allowed_hosts = []
+            
+            # Add all permutations
+            hosts_to_add = ['*', 'host.docker.internal', 'host.docker.internal:8200', '0.0.0.0', '127.0.0.1']
+            for h in hosts_to_add:
+                if h not in mcp.settings.allowed_hosts:
+                    mcp.settings.allowed_hosts.append(h)
+            
+            logger.info(f"Configured allowed_hosts: {mcp.settings.allowed_hosts}")
+            
     except Exception as e:
-        logger.warning(f"Failed to set allowed_hosts: {e}")
+        logger.warning(f"Failed to configure security settings: {e}")
 
     # Return MCP configuration for transport
     return config.server
