@@ -901,6 +901,19 @@ async def initialize_server() -> ServerConfig:
     if config.server.port:
         mcp.settings.port = config.server.port
 
+    # Attempt to allow all hosts to fix "Invalid Host header" error
+    # This is necessary when running in Docker or accessing via host.docker.internal
+    try:
+        # Check if allowed_hosts is a valid setting (it is in newer MCP versions)
+        if hasattr(mcp.settings, 'allowed_hosts'):
+            mcp.settings.allowed_hosts = ['*']
+            logger.info("Configured allowed_hosts to ['*']")
+        else:
+            # Fallback for older versions or if attribute name differs
+            logger.debug("mcp.settings does not have allowed_hosts attribute")
+    except Exception as e:
+        logger.warning(f"Failed to set allowed_hosts: {e}")
+
     # Return MCP configuration for transport
     return config.server
 
