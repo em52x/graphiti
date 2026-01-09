@@ -901,31 +901,30 @@ async def initialize_server() -> ServerConfig:
     if config.server.port:
         mcp.settings.port = config.server.port
 
-    # Attempt to fix "Invalid Host header" error
+    # Attempt to fix "Invalid Host header" error via transport_security
     try:
-        logger.info(f"Debug: MCP Settings Dir: {dir(mcp.settings)}")
-        
-        # Try disabling DNS rebinding protection (most likely fix)
-        if hasattr(mcp.settings, 'enable_dns_rebinding_protection'):
-            mcp.settings.enable_dns_rebinding_protection = False
-            logger.info("Disabled DNS rebinding protection")
+        if hasattr(mcp.settings, 'transport_security'):
+            ts = mcp.settings.transport_security
             
-        # Try setting allowed_hosts
-        if hasattr(mcp.settings, 'allowed_hosts'):
-            # Ensure it's a list
-            if mcp.settings.allowed_hosts is None:
-                mcp.settings.allowed_hosts = []
+            # Disable DNS rebinding protection if possible
+            if hasattr(ts, 'enable_dns_rebinding_protection'):
+                ts.enable_dns_rebinding_protection = False
+                logger.info("Disabled DNS rebinding protection via transport_security")
             
-            # Add all permutations
-            hosts_to_add = ['*', 'host.docker.internal', 'host.docker.internal:8200', '0.0.0.0', '127.0.0.1']
-            for h in hosts_to_add:
-                if h not in mcp.settings.allowed_hosts:
-                    mcp.settings.allowed_hosts.append(h)
-            
-            logger.info(f"Configured allowed_hosts: {mcp.settings.allowed_hosts}")
-            
+            # Set allowed hosts
+            if hasattr(ts, 'allowed_hosts'):
+                # Ensure it's a list
+                if ts.allowed_hosts is None:
+                    ts.allowed_hosts = []
+                
+                hosts_to_add = ['*', 'host.docker.internal', 'host.docker.internal:8200', '0.0.0.0', '127.0.0.1']
+                for h in hosts_to_add:
+                    if h not in ts.allowed_hosts:
+                        ts.allowed_hosts.append(h)
+                logger.info(f"Configured allowed_hosts via transport_security: {ts.allowed_hosts}")
+                
     except Exception as e:
-        logger.warning(f"Failed to configure security settings: {e}")
+        logger.warning(f"Failed to configure transport_security: {e}")
 
     # Return MCP configuration for transport
     return config.server
