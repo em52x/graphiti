@@ -125,7 +125,7 @@ LABEL org.opencontainers.image.title="FalkorDB + Graphiti MCP Server" \
       graphiti.core.version="${GRAPHITI_CORE_VERSION}"
 
 # Expose ports
-EXPOSE 6379 3000 8000
+EXPOSE 6379 3000 8200
 
 # Health check - verify FalkorDB is responding
 # MCP server startup is logged and visible in container output

@@ -71,11 +71,11 @@ LABEL org.opencontainers.image.title="Graphiti MCP Server (Standalone)" \
       graphiti.core.version="${GRAPHITI_CORE_VERSION}"
 
 # Expose MCP server port
-EXPOSE 8000
+EXPOSE 8200
 
 # Health check - verify MCP server is responding
 HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:8200/health || exit 1
 
 # Run the MCP server
 CMD ["uv", "run", "--no-sync", "main.py"]

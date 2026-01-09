@@ -49,7 +49,7 @@ Only stable releases are built automatically (pre-release versions are skipped).
       graph:
          image: zepai/graphiti:latest
          ports:
-            - "8000:8000"
+            - "8200:8200"
          
          environment:
             - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -71,8 +71,8 @@ Only stable releases are built automatically (pre-release versions are skipped).
       neo4j_data:
    ```
 
-5. Once you start the service, it will be available at `http://localhost:8000` (or the port you have specified in the docker compose file).
+5. Once you start the service, it will be available at `http://localhost:8200` (or the port you have specified in the docker compose file).
 
-6. You may access the swagger docs at `http://localhost:8000/docs`. You may also access redocs at `http://localhost:8000/redoc`.
+6. You may access the swagger docs at `http://localhost:8200/docs`. You may also access redocs at `http://localhost:8200/redoc`.
 
 7. You may also access the neo4j browser at `http://localhost:7474` (the port depends on the neo4j instance you are using).

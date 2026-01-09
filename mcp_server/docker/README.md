@@ -47,8 +47,8 @@ FALKORDB_DATABASE=default_db  # Database name (default: default_db)
 #### Accessing Services
 
 - **FalkorDB (Redis):** redis://localhost:6379
-- **FalkorDB Web UI:** http://localhost:3000
-- **MCP Server:** http://localhost:8000
+- **FalkorDB Web UI:** http://localhost:3200
+- **MCP Server:** http://localhost:8200
 
 #### Data Management
 
@@ -100,7 +100,7 @@ USE_PARALLEL_RUNTIME=false  # Enterprise feature (default: false)
 
 - **Web Interface:** http://localhost:7474
 - **Bolt Protocol:** bolt://localhost:7687
-- **MCP Server:** http://localhost:8000
+- **MCP Server:** http://localhost:8200
 
 Default credentials: `neo4j` / `demodemo`
 
@@ -162,10 +162,10 @@ Note: Data is not automatically migrated between different database types. You'l
 
 ### Port Conflicts
 
-If port 8000 is already in use:
+If port 8200 is already in use:
 ```bash
 # Find what's using the port
-lsof -i :8000
+lsof -i :8200
 
 # Change the port in docker-compose.yml
 # Under ports section: "8001:8000"

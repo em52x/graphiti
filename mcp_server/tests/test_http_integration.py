@@ -12,7 +12,7 @@ import time
 from mcp.client.session import ClientSession
 
 
-async def test_http_transport(base_url: str = 'http://localhost:8000'):
+async def test_http_transport(base_url: str = 'http://localhost:8200'):
     """Test MCP server with HTTP streaming transport."""
 
     # Import the streamable http client
@@ -158,7 +158,7 @@ async def test_http_transport(base_url: str = 'http://localhost:8000'):
         return False
 
 
-async def test_sse_transport(base_url: str = 'http://localhost:8000'):
+async def test_sse_transport(base_url: str = 'http://localhost:8200'):
     """Test MCP server with SSE transport."""
 
     # Import the SSE client
@@ -212,12 +212,12 @@ async def main():
         print('Usage: python test_http_integration.py <transport> [host] [port]')
         print('  transport: http or sse')
         print('  host: server host (default: localhost)')
-        print('  port: server port (default: 8000)')
+        print('  port: server port (default: 8200)')
         sys.exit(1)
 
     transport = sys.argv[1].lower()
     host = sys.argv[2] if len(sys.argv) > 2 else 'localhost'
-    port = sys.argv[3] if len(sys.argv) > 3 else '8000'
+    port = sys.argv[3] if len(sys.argv) > 3 else '8200'
     base_url = f'http://{host}:{port}'
 
     # Check if server is running

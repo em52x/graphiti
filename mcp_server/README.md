@@ -72,7 +72,7 @@ This starts both FalkorDB and the MCP server in a single container.
 docker compose -f docker/docker-compose-neo4j.yml up
 ```
 
-4. Point your MCP client to `http://localhost:8000/mcp/`
+4. Point your MCP client to `http://localhost:8200/mcp/`
 
 ## Installation
 
@@ -105,7 +105,7 @@ The server can be configured using a `config.yaml` file, environment variables, 
 ### Default Configuration
 
 The MCP server comes with sensible defaults:
-- **Transport**: HTTP (accessible at `http://localhost:8000/mcp/`)
+- **Transport**: HTTP (accessible at `http://localhost:8200/mcp/`)
 - **Database**: FalkorDB (combined in single container with MCP server)
 - **LLM**: OpenAI with model gpt-5-mini
 - **Embedder**: OpenAI text-embedding-3-small
@@ -252,9 +252,9 @@ docker compose up
 ```
 
 This starts a single container with:
-- HTTP transport on `http://localhost:8000/mcp/`
+- HTTP transport on `http://localhost:8200/mcp/`
 - FalkorDB graph database on `localhost:6379`
-- FalkorDB web UI on `http://localhost:3000`
+- FalkorDB web UI on `http://localhost:3200`
 - OpenAI LLM with gpt-5-mini model
 
 ### Running with Neo4j
@@ -441,14 +441,14 @@ docker compose -f docker/docker-compose-falkordb.yml up
 
 FalkorDB configuration:
 - Redis port: `6379`
-- Web UI: `http://localhost:3000`
+- Web UI: `http://localhost:3200`
 - Connection: `redis://falkordb:6379`
 
 #### Accessing the MCP Server
 
 Once running, the MCP server is available at:
-- **HTTP endpoint**: `http://localhost:8000/mcp/`
-- **Health check**: `http://localhost:8000/health`
+- **HTTP endpoint**: `http://localhost:8200/mcp/`
+- **Health check**: `http://localhost:8200/health`
 
 #### Running Docker Compose from a Different Directory
 
@@ -476,7 +476,7 @@ VS Code with GitHub Copilot Chat extension supports MCP servers. Add to your VS 
 {
   "mcpServers": {
     "graphiti": {
-      "uri": "http://localhost:8000/mcp/",
+      "uri": "http://localhost:8200/mcp/",
       "transport": {
         "type": "http"
       }
@@ -530,7 +530,7 @@ For HTTP transport (default), you can use this configuration:
   "mcpServers": {
     "graphiti-memory": {
       "transport": "http",
-      "url": "http://localhost:8000/mcp/"
+      "url": "http://localhost:8200/mcp/"
     }
   }
 }
@@ -590,7 +590,7 @@ docker compose up
 {
   "mcpServers": {
     "graphiti-memory": {
-      "url": "http://localhost:8000/mcp/"
+      "url": "http://localhost:8200/mcp/"
     }
   }
 }
@@ -633,7 +633,7 @@ The Graphiti MCP Server uses HTTP transport (at endpoint `/mcp/`). Claude Deskto
           "command": "npx", // Or the full path to mcp-remote if npx is not in your PATH
           "args": [
             "mcp-remote",
-            "http://localhost:8000/mcp/" // The Graphiti server's HTTP endpoint
+            "http://localhost:8200/mcp/" // The Graphiti server's HTTP endpoint
           ]
         }
       }

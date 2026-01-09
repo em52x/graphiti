@@ -28,8 +28,8 @@ services:
       - mcp_logs:/var/log/graphiti
     ports:
       - "6379:6379"  # FalkorDB/Redis
-      - "3000:3000"  # FalkorDB web UI
-      - "8000:8000"  # MCP server HTTP
+      - "3200:3200"  # FalkorDB web UI
+      - "8200:8200"  # MCP server HTTP
     healthcheck:
       test: ["CMD", "redis-cli", "-p", "6379", "ping"]
       interval: 10s

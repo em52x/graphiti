@@ -16,7 +16,7 @@ from mcp.client.sse import sse_client
 class MCPTransportTester:
     """Test MCP server with different transport modes."""
 
-    def __init__(self, transport: str = 'sse', host: str = 'localhost', port: int = 8000):
+    def __init__(self, transport: str = 'sse', host: str = 'localhost', port: int = 8200):
         self.transport = transport
         self.host = host
         self.port = port
@@ -258,7 +258,7 @@ async def main():
     # Parse command line arguments
     transport = sys.argv[1] if len(sys.argv) > 1 else 'sse'
     host = sys.argv[2] if len(sys.argv) > 2 else 'localhost'
-    port = int(sys.argv[3]) if len(sys.argv) > 3 else 8000
+    port = int(sys.argv[3]) if len(sys.argv) > 3 else 8200
 
     # Create tester
     tester = MCPTransportTester(transport, host, port)

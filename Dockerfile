@@ -71,8 +71,8 @@ ENV PYTHONUNBUFFERED=1 \
 USER app
 
 # Set port
-ENV PORT=8000
+ENV PORT=8200
 EXPOSE $PORT
 
 # Use uv run for execution
-CMD ["uv", "run", "uvicorn", "graph_service.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "graph_service.main:app", "--host", "0.0.0.0", "--port", "8200"]

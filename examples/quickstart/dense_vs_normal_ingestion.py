@@ -30,7 +30,7 @@ This example demonstrates how Graphiti handles different types of content:
 The chunking behavior is controlled by environment variables:
 - CHUNK_MIN_TOKENS: Minimum tokens before considering chunking (default: 1000)
 - CHUNK_DENSITY_THRESHOLD: Entity density threshold (default: 0.15)
-- CHUNK_TOKEN_SIZE: Target size per chunk (default: 3000)
+- CHUNK_TOKEN_SIZE: Target size per chunk (default: 3200)
 - CHUNK_OVERLAP_TOKENS: Overlap between chunks (default: 200)
 """
 

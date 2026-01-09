@@ -154,7 +154,7 @@ Optional:
 > Alternatively, you can use FalkorDB on-premises via Docker and instantly start with the quickstart example:
 
 ```bash
-docker run -p 6379:6379 -p 3000:3000 -it --rm falkordb/falkordb:latest
+docker run -p 6379:6379 -p 3200:3200 -it --rm falkordb/falkordb:latest
 
 ```
 

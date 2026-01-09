@@ -16,7 +16,7 @@ import httpx
 class MCPIntegrationTest:
     """Integration test client for Graphiti MCP Server."""
 
-    def __init__(self, base_url: str = 'http://localhost:8000'):
+    def __init__(self, base_url: str = 'http://localhost:8200'):
         self.base_url = base_url
         self.client = httpx.AsyncClient(timeout=30.0)
         self.test_group_id = f'test_group_{int(time.time())}'

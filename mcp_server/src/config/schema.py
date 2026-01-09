@@ -81,7 +81,7 @@ class ServerConfig(BaseModel):
         description='Transport type: http (default, recommended), stdio, or sse (deprecated)',
     )
     host: str = Field(default='0.0.0.0', description='Server host')
-    port: int = Field(default=8000, description='Server port')
+    port: int = Field(default=8200, description='Server port')
 
 
 class OpenAIProviderConfig(BaseModel):
